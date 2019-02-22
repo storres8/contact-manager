@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Consumer } from './Context'
+import React, { Component } from 'react';
+import { Consumer } from './Context';
+import Contact from "./Contact";
 
 class Contacts extends Component {
   render() {
@@ -10,8 +11,15 @@ class Contacts extends Component {
                 const { contacts } = value;
                 return(
                     <div>
-                        <h1>Hello from the Contacts Component</h1>
-                        {console.log(contacts)}
+                        {contacts.map(contact => 
+                            <Contact 
+                                key= {contact.id}
+                                id={contact.id}
+                                name={contact.name}
+                                email={contact.email}
+                                phone={contact.phone}
+                            />
+                        )}
                     </div>
                 )
             }
