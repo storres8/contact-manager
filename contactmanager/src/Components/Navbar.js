@@ -5,7 +5,7 @@ class Navbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">Contact Manager</a>
+            <h1 className="navbar-brand" >Contact Manager</h1>
             <a className="navbar-brand" href="#" className="ml-auto">Home</a>
         </nav>
       </div>

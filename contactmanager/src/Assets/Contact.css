@@ -9,11 +9,11 @@
 }
 
 #contactName{
-    cursor: pointer;
     position: relative;
     top: 15px;
 }
 
 .fa-trash-alt{
     color: red;
+    cursor: pointer;
 }

@@ -26,7 +26,7 @@ class Contact extends Component {
     return (
         <div className="container">
             <div className="container row justify-content-center" id="cards">
-                <div className="card" style={cardStyle} >
+                <div className="card border-secondary" style={cardStyle} >
                     <div className="card-header">   
                         <h1 id="contactName">
                             {name}
@@ -36,12 +36,17 @@ class Contact extends Component {
                             ></i>
                             
                         </h1>
-                        <div style={deleteStyle}><i className="fas fa-trash-alt"></i></div>
+                        <div style={deleteStyle}>
+                            <i 
+                                className="fas fa-trash-alt"
+                                onClick = {() => console.log(id) }
+                            ></i>
+                        </div>
                     </div>
                     {this.state.dropDown ? 
                         (<ul className="list-group list-group-flush">
-                            <li className ="list-group-item"><h5>{email}</h5></li>
-                            <li className="list-group-item"><h5>{phone}</h5></li>
+                            <li className ="list-group-item"><h5>Email: {email}</h5></li>
+                            <li className="list-group-item"><h5>Phone: {phone}</h5></li>
                         </ul>) 
                             : null
                     }
