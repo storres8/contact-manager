@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Contacts from './Components/Contacts';
 import Navbar from './Components/Navbar';
 import { Provider } from './Components/Context'; 
+import AddContact from './Components/AddContact';
 
 
 class App extends Component {
@@ -9,9 +10,10 @@ class App extends Component {
     return (
       <Provider>
         <div>
-        < Navbar/>
-        < Contacts/>
-      </div>
+          < Navbar/>
+          < AddContact/>
+          < Contacts/>
+        </div>
       </Provider>
     );
   }
