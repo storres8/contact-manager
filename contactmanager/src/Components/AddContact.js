@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Consumer } from './Context';
-import uuid from 'uuid'
+import uuid from 'uuid';
+import TextInputGroup from './TextInputGroup';
+
 
 class AddContact extends Component {
 
@@ -8,6 +10,7 @@ class AddContact extends Component {
     name: '',
     email: '',
     phone: '', 
+    error:{},
   };
 
   onChange = (e) =>{
@@ -20,11 +23,24 @@ class AddContact extends Component {
     e.preventDefault()
 
     const { name, email, phone } = this.state
+
+    // check for errors 
+    if(name===''){
+      return this.setState({error:{name:'Name is required'}})
+    }
+    if(email===''){
+      return this.setState({error:{email:'Email is required'}}) 
+    }
+    if(phone===''){
+      return this.setState({error:{phone:'Phone is required'}})
+    }
+
     const newContact = {
       id: uuid(),
       name: name,
       email: email, 
       phone: phone, 
+      errors: {},
     }
 
     dispatch(
@@ -40,7 +56,7 @@ class AddContact extends Component {
 
 
   render() {
-    const { name, email, phone } = this.state;
+    const { name, email, phone, error } = this.state;
     return (
       <Consumer>
       {(value) => { 
@@ -53,45 +69,37 @@ class AddContact extends Component {
               </div>
               <div className="card-body">
                 <form onSubmit= {(e) => this.onSubmit(e, dispatch)}>
-                  <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input 
-                    type="text" 
-                    name="name"
-                    id="name" 
-                    className="form-control"
-                    placeholder="Enter Name..."
-                    value = { name }  
-                    onChange = {this.onChange}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input 
-                    type="email" 
-                    name="email"
-                    id="email" 
-                    className="form-control"
-                    placeholder="Enter Email..."
-                    value = { email }  
-                    onChange = {this.onChange}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone Number</label>
-                    <input 
-                    type="text" 
-                    name="phone"
-                    id="phone" 
-                    className="form-control"
-                    placeholder="Enter Phone Number..."
-                    value = { phone }  
-                    onChange = {this.onChange}
-                    />
-                    <small id="emailHelp" className="form-text text-muted">Ex: xxx-xxx-xxxx</small>
-                  </div>
+                  <TextInputGroup 
+                    label = 'Name'
+                    htmlFor = 'name'
+                    name = 'name'
+                    id= 'name'
+                    value = {name}
+                    placeholder = 'Enter Name...'
+                    change = {this.onChange}
+                    error = {error.name}
+                  />
+                  <TextInputGroup
+                    htmlFor = 'email'
+                    label = 'Email'
+                    type = 'email'
+                    name = 'email'
+                    id = 'email'
+                    placeholder = 'Enter Email...'
+                    value = {email}
+                    change = {this.onChange}
+                    error = {error.email}
+                  />
+                  <TextInputGroup
+                    htmlFor = 'phone'
+                    label = 'Phone Number'
+                    name = 'phone'
+                    id = 'phone'
+                    placeholder = 'Enter Phone Number...'
+                    value = {phone}
+                    change = {this.onChange}
+                    error = {error.phone}
+                  />
                   <input value="Submit" type="submit" className="btn btn-primary"/>
                 </form>
                 </div>
