@@ -17,6 +17,15 @@ const reducer = (state, action) => {
         ...state,
         contacts: [action.payload, ...state.contacts]
       };
+    case "UPDATE_CONTACT":
+      return {
+        ...state,
+        contacts: state.contacts.map(contact =>
+          contact.id === action.payload.id
+            ? (contact = action.payload)
+            : contact
+        )
+      };
     default:
       return state;
   }
@@ -32,16 +41,16 @@ export class Provider extends Component {
     }
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     /*fetching data through the fetch API*/
     // fetch('https://jsonplaceholder.typicode.com/users')
     // .then(resp => resp.json())
     // .then(data => this.setState({contacts:data}))
 
     // fetching data through axios
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then(resp => this.setState({ contacts: resp.data }));
+    const resp = await axios.get("https://jsonplaceholder.typicode.com/users");
+
+    this.setState({ contacts: resp.data });
   }
 
   render() {
